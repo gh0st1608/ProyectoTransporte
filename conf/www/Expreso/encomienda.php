@@ -51,7 +51,7 @@
                 <?php
 			include("modal/registrar_encomienda.php");
 			include("modal/editar_encomienda.php");
-			include("modal/Registrar_detalle_encomienda.php");
+			include("modal/registrar_detalle_encomienda.php");
 			include("modal/editar_encomienda_detalle.php");
 			include("modal/listar_datos_encomienda.php");
 			?>
