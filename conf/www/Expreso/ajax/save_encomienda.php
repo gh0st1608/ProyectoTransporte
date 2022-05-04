@@ -102,10 +102,12 @@ $session_id= session_id();
                         echo $message;
                 }
         }
-        /*
+        
 		$count_query   = mysqli_query($con, "SELECT id_facturacion FROM tb_facturacion_cab ORDER BY id_facturacion DESC limit 1");
 		$row= mysqli_fetch_array($count_query);
 		$idfactura = $row['id_facturacion'];
+
+        //print_r($sqldet);die();
 
 		$sqldetencomienda=mysqli_query($con, "select * from tb_encomienda_det where tb_encomienda_det.codigo='".$codigo."'");
 
@@ -138,17 +140,13 @@ $session_id= session_id();
                 $vat = "FRE";
             }
 		}	
+	  
+        $sqldet = "INSERT INTO tb_facturacion_det (id_facturacion, cantidad, id_categoria, id_producto, precio_unitario, igv_total, precio_total, descripccion) VALUES ('$idfactura','$cantidad','1','1', $subtotal, $igv, $total, '$desc')";
+		$insert_sqldet = mysqli_query($con, $sqldet); 
 
-		$sqldet = "INSERT INTO tb_facturacion_det (id_facturacion, cantidad, id_categoria, id_producto, precio_unitario, igv_total, precio_total, descripccion) VALUES ('$idfactura','$cantidad','1','1', $subtotal, $igv, $total, '$desc')";
-            //print_r($sqldet);die();
-		$insert_sqldet = mysqli_query($con, $sqldet);    
-
-        */
-
-        /*
 		$sqlencodet = "UPDATE tb_encomienda_det SET id_encomienda = $id_encomienda WHERE codigo = '".$codigo."'";
 		$insert_encodet=mysqli_query($con, $sqlencodet);
-        */
+
 
         $respo = true;
         if ($respo){

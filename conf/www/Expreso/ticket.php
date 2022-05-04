@@ -14,13 +14,11 @@ date_default_timezone_set("America/Lima");
 	{
 		$id_encomienda=intval($_GET['id_encomienda']);
   		$campos ="tb_encomienda_cab.codigo, tb_buses.placa, tb_cliente.n_documento_identidad, tb_cliente.nombre_cliente, tb_cliente.telefono, tb_cliente.direccion, tb_encomienda_cab.tipdoc, tb_sucursales.nombre_sucursal, tb_encomienda_cab.fecha_creado, tb_encomienda_cab.id_consignatario,tb_encomienda_cab.celular,tb_encomienda_cab.dni,tb_encomienda_cab.id_encomienda,tb_encomienda_cab.conductor,tb_encomienda_cab.delivery,tb_encomienda_cab.direccion_delivery,encargado.nombre";
-
         //agregar la tabla encargado.nombre
-
     
-		$sql_enco=mysqli_query($con,"select $campos from tb_encomienda_cab,encargado,tb_buses, tb_cliente , tb_sucursales where tb_buses.id_bus =  tb_encomienda_cab.id_bus and encargado.id_encargado = tb_encomienda_cab.id_encargado and tb_encomienda_cab.id_cliente = tb_cliente.id_cliente and tb_encomienda_cab.id_sucursal_llegada = tb_sucursales.id_sucursal and tb_encomienda_cab.id_encomienda='".$id_encomienda."'");
+		$sql_enco=mysqli_query($con,"select $campos from tb_encomienda_cab,encargado,tb_buses, tb_cliente, tb_sucursales where tb_buses.id_bus =  tb_encomienda_cab.id_bus and encargado.id_encargado = tb_encomienda_cab.id_encargado and tb_encomienda_cab.id_cliente = tb_cliente.id_cliente and tb_encomienda_cab.id_sucursal_llegada = tb_sucursales.id_sucursal and tb_encomienda_cab.id_encomienda='".$id_encomienda."'");
 		//agregar la tabla encargado
-        
+
         $countenco=mysqli_num_rows($sql_enco);
        // print_r ($countenco);
 		if ($countenco == 1)
@@ -42,7 +40,7 @@ date_default_timezone_set("America/Lima");
 				$dni = $rw_encomienda['dni'];
                 $sucursal = $rw_encomienda['nombre_sucursal'];
                 $conductor = $rw_encomienda['conductor'];
-                $delivery = $rw_encomienda['delivery'];
+                $delivery = $rw_encomienda['delivery']  ;
                 $direccion_delivery = $rw_encomienda['direccion_delivery'];
 
 			    
@@ -146,7 +144,7 @@ date_default_timezone_set("America/Lima");
                 $hash = 0 ;
                 while ($rows=mysqli_fetch_array($sqltabledet)){  $hash++; ?>
                 <tr class="precios">
-                
+                    
                     <td class="text-center" align="center"><?php echo $rows['cantidad']; ?></td>
                     <td class="desc" align="center"><?php echo $rows['descripccion']; ?></td>
                     <!--<td class="text-right valor"><?php echo $rows['precio_unitario']; ?></td>-->
