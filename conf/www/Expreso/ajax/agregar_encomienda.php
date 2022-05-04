@@ -1,5 +1,4 @@
 <?php
-
 include 'is_logged.php'; //Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $session_id = session_id();
 //print_r($session_id);die();

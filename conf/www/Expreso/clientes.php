@@ -1,11 +1,10 @@
 <?php
 
 	session_start();
-	if (!isset($_SESSION['user_login_status']) || $_SESSION['user_login_status'] != 1) { //!F && V
-		header("location: login.php");
-		//print_r($_SESSION['user_login_status']);
+	if (!isset($_SESSION['user_login_status']) || $_SESSION['user_login_status'] != 1) {
+        header("location: login.php");
 		exit;
-    }
+        }
 	
 	/* Connect To Database*/
 	require_once ("config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
@@ -39,6 +38,9 @@
 			<h4><i class='glyphicon glyphicon-search'></i> Buscar Clientes</h4>
 		</div>
 		<div class="panel-body">
+		
+			
+			
 			<?php
 				include("modal/registro_clientes.php");
 				include("modal/editar_clientes.php");

@@ -80,7 +80,6 @@
 					<th>#</th>
 					<th>Codigo</th>
 					<th>Registrado por</th>
-					<th>Conductor</th>
 					<th>Documento Identidad</th>
 					<th>Cliente</th>
 					<th>Destino</th>
@@ -122,7 +121,6 @@
 						<td><?php echo $offset; ?></td>
 						<td ><?php echo $codigo;?></td>
 						<td><?php echo $nombre_usuario; ?></td>
-						<td><?php echo $conductor;?></td>
 						<td ><?php echo $ndocumento;?></td>
 						<td ><?php echo $cliente;?></td>
 						<td><?php echo $nombre_sucursal;?></td>

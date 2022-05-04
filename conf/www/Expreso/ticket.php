@@ -127,7 +127,6 @@ date_default_timezone_set("America/Lima");
             <br><strong>Destino: </strong> <?php echo $sucursal;?>
             <br><strong>Entrega: </strong> <?php echo $delivery;?>
             <br><strong>Dirección: </strong> <?php echo $direccion_delivery;?>
-            <br><strong>Conductor: </strong> <?php echo $conductor;?>
         </p>
 
 

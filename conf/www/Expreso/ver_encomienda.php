@@ -133,10 +133,10 @@
  </div>
 </div>
 <div class="form-group row">
-	<label  for="conductor" class="col-md-1 control-label">Conductor</label>
- <div class="col-md-2">
+	<!--<label  for="conductor" class="col-md-1 control-label">Conductor</label>
+ 	<div class="col-md-2">
  	<input style="width: 120px;" type="text" readonly class="form-control input-sm" id="conductor" value="<?php echo  $conductor;?>" name="conductor">
-</div>
+	</div>-->
 
 			<div class="clearfix"></div>
 				<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->	

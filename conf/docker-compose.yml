@@ -11,7 +11,7 @@ services:
         networks:
             - default
     db:
-        image: mysql:5.7
+        image: mysql:5.7.38 #Disable: ONLY_FULL_GROUP_BY mode
         ports: 
             - "3306:3306"
         command: --default-authentication-plugin=mysql_native_password

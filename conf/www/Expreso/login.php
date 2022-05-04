@@ -1,4 +1,4 @@
-<?php
+<?php  
 if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
 } else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
@@ -6,10 +6,10 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
     // (this library adds the PHP 5.5 password hashing functions to older versions of PHP)
     require_once("libraries/password_compatibility_library.php");
 }
-require_once("./config/db.php");
+require_once("config/db.php");
 
+// load the login class
 require_once("classes/Login.php");
-
 $login = new Login();
 
 // ... ask if we are logged in here:
@@ -21,8 +21,8 @@ if ($login->isUserLoggedIn() == true) {
 } else {
     // the user is not logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are not logged in" view.
-?>
-<!DOCTYPE html>
+    ?>
+    <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -81,7 +81,8 @@ if ($login->isUserLoggedIn() == true) {
     </div><!-- /container -->
   </body>
 </html>
-<?php
+
+	<?php
 }
 
 

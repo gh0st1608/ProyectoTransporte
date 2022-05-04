@@ -1,124 +1,173 @@
- <?php
-/*include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
+﻿<?php
+include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
 $session_id= session_id();
-
-	Connect To Database
-	require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
-	require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
-	//Archivo de funciones PHP
+	require_once ("../config/db.php");
+    require_once ("../config/conexion.php");
 	include("../funciones.php");
-	//session_start();
-
-	if (!empty($_POST['id_cliente']) and !empty($_POST['id_bus']) and !empty($_POST['n_documento']))
+	if (!empty($_POST['id_cliente']) and !empty($_POST['id_bus']))
 	{	
-		//$fecha = date("Y-m-d H:i:s");
-
-		$sucursal=mysqli_real_escape_string($con,(strip_tags($_SESSION['idsucursal'],ENT_QUOTES)));
-		$ndocumento=mysqli_real_escape_string($con,(strip_tags($_POST['n_documento'],ENT_QUOTES)));
-		$cliente=mysqli_real_escape_string($con,(strip_tags($_POST['id_cliente'],ENT_QUOTES)));
-		$usuario=mysqli_real_escape_string($con,(strip_tags($_SESSION['user_id'],ENT_QUOTES)));
-		$tipdoc=mysqli_real_escape_string($con,(strip_tags($_POST['id_tipo_documento'],ENT_QUOTES)));
-		$subtotal=mysqli_real_escape_string($con,(strip_tags($_POST['subtotal'],ENT_QUOTES)));
-		$igv=mysqli_real_escape_string($con,(strip_tags($_POST['igv'],ENT_QUOTES)));
-		$total=mysqli_real_escape_string($con,(strip_tags($_POST['total'],ENT_QUOTES)));
+		$codigo=mysqli_real_escape_string($con,(strip_tags($_POST['codigo'],ENT_QUOTES)));
+		$Didentidad=mysqli_real_escape_string($con,(strip_tags($_POST['Didentidad'],ENT_QUOTES)));
+		$id_cliente=mysqli_real_escape_string($con,(strip_tags($_POST['id_cliente'],ENT_QUOTES)));
 		$id_bus=mysqli_real_escape_string($con,(strip_tags($_POST['id_bus'],ENT_QUOTES)));
-		$desc=mysqli_real_escape_string($con,(strip_tags($_POST['desc'],ENT_QUOTES)));
-		$preciotexto=number_format(mysqli_real_escape_string($con,(strip_tags($_POST['preciotexto'],ENT_QUOTES))), 2, '.', ' ');
-		$fecha=date("Y/m/d H:i:s", strtotime(mysqli_real_escape_string($con,(strip_tags($_POST['fecha'],ENT_QUOTES)))));
-		$asiento=mysqli_real_escape_string($con,(strip_tags($_POST['asiento'],ENT_QUOTES)));
-        $piso=mysqli_real_escape_string($con,(strip_tags($_POST['piso'],ENT_QUOTES)));
-	    $fenvio=date("Y/m/d H:i:s", strtotime(mysqli_real_escape_string($con,(strip_tags($_POST['fenvio'],ENT_QUOTES)))));
-        $sucursales=mysqli_real_escape_string($con,(strip_tags($_POST['id_sucu_llegada'],ENT_QUOTES)));
-        //$consignatario=mysqli_real_escape_string($con,(strip_tags($_POST['consignatario'],ENT_QUOTES)));
-        //$id_pasajero=mysqli_real_escape_string($con,(strip_tags($_POST['id_pasajero'],ENT_QUOTES)));
+		$tipdoc=mysqli_real_escape_string($con,(strip_tags($_POST['tipdoc'],ENT_QUOTES)));
+		$id_sucu_llegada=mysqli_real_escape_string($con,(strip_tags($_POST['id_sucu_llegada'],ENT_QUOTES)));
+		$fecha=date("Y/m/d", strtotime(mysqli_real_escape_string($con,(strip_tags($_POST['fecha'],ENT_QUOTES)))));
+		$idsucupartida= $_SESSION['idsucursal'];
+		$usuario =$_SESSION['user_id'];
+        $consignatario=mysqli_real_escape_string($con,(strip_tags($_POST['consignatario'],ENT_QUOTES)));
+        $celular=mysqli_real_escape_string($con,(strip_tags($_POST['celular'],ENT_QUOTES)));
+        $dni=mysqli_real_escape_string($con,(strip_tags($_POST['dni'],ENT_QUOTES)));
+        $delivery=mysqli_real_escape_string($con,(strip_tags($_POST['delivery'],ENT_QUOTES)));
+        $direccion_delivery=mysqli_real_escape_string($con,(strip_tags($_POST['direccion_delivery'],ENT_QUOTES)));
+         $conductor=mysqli_real_escape_string($con,(strip_tags($_POST['conductor'],ENT_QUOTES)));
+         $encargado=mysqli_real_escape_string($con,(strip_tags($_POST['id_encargado'],ENT_QUOTES)));
+         print_r('Entro aqui');
 
-        if (empty($_POST['id_pasajero'])) {
-            $id_pasajero = 0;
-        }
-        else {
-            $id_pasajero=mysqli_real_escape_string($con,(strip_tags($_POST['id_pasajero'],ENT_QUOTES)));
-        }
 
-		/*$tipdoc=intval($_SESSION['id_tipo_documento']);
-		$subtotal=intval($_SESSION['subtotal']);
-		$igv=intval($_SESSION['igv']);
-		$total=intval($_SESSION['total']);
+		$subtotalcab=mysqli_real_escape_string($con,(strip_tags($_POST['subtotal'],ENT_QUOTES)));
+		$igvcab=mysqli_real_escape_string($con,(strip_tags($_POST['igv'],ENT_QUOTES)));
+		$totalcab=mysqli_real_escape_string($con,(strip_tags($_POST['total'],ENT_QUOTES)));
+		$preciotexto=mysqli_real_escape_string($con,(strip_tags($_POST['subtotal'],ENT_QUOTES)));
 
-		//print_r($tipdoc);die();
+		/*encomienda*/
+		$sqlencocab = "INSERT INTO tb_encomienda_cab (id_cliente,id_usuario,id_bus, id_sucursal_partida, id_sucursal_llegada, situacion, id_usuario_creador, fecha_creado, id_usuario_modificador, fecha_modificado, codigo, tipdoc, id_consignatario,celular,dni,delivery,direccion_delivery,conductor,id_encargado) VALUES ($id_cliente,$usuario, $id_bus, $idsucupartida, $id_sucu_llegada, '1', $usuario, '$fecha', $usuario, '$fecha', '$codigo', $tipdoc, '$consignatario','$celular','$dni','$delivery','$direccion_delivery','$conductor','$encargado')";
+		$insert_encocab=mysqli_query($con, $sqlencocab);
 
-		$sql = "INSERT INTO tb_facturacion_cab (id_sucursal, id_tipo_documento, n_documento, id_cliente, valor_total, igv_total, precio_total, id_usuario_creador, fecha_creado , id_usuario_modificador, fecha_modificado, id_moneda, id_bus, precio_texto, fecha_envio, id_sucursal_llegada, id_tipo, id_pasajero) VALUES ('$sucursal','$tipdoc','$ndocumento','$cliente', $subtotal, $igv, $total, '$usuario', '$fecha', '1', '$fecha', '1','$id_bus', $preciotexto, '$fenvio', '$sucursales', 1, '$id_pasajero')";
-		//print_r($sql);die();
-		$insert_tmp=mysqli_query($con, $sql);
+
+
+		$count_encocab   = mysqli_query($con, "SELECT id_encomienda FROM tb_encomienda_cab WHERE codigo = '".$codigo."'");
+		$rowencocab= mysqli_fetch_array($count_encocab);
+		$id_encomienda = $rowencocab['id_encomienda'];
+
+		$sqlencodet = "UPDATE tb_encomienda_det SET id_encomienda = $id_encomienda WHERE codigo = '".$codigo."'";
+		$insert_encodet=mysqli_query($con, $sqlencodet);
+
+		/*-------------------------------------*/
+
+
+		/*Facturacion*/
+
+		$querysucursal   = mysqli_query($con, "SELECT * FROM tb_sucursales where id_sucursal = $idsucupartida ");
+		$fetchsucursal= mysqli_fetch_array($querysucursal);
+
+		$qureryfac   = mysqli_query($con, "SELECT count(*) filas FROM tb_facturacion_cab WHERE id_tipo in (2) and id_sucursal = $idsucupartida and id_tipo_documento= $tipdoc");
+		$fetchfac= mysqli_fetch_array($qureryfac);
+		$filas = ($fetchfac['filas'] == 0) ? 1 : $fetchfac['filas'] + 1;
+
+		$doct = ($tipdoc==1) ? "01" : "03" ;		
+		$serie = ($tipdoc==1) ? $fetchsucursal['serie_factura'] : $fetchsucursal['serie_boleta']  ;
+
+		$ndocumento = $serie."-".str_pad($filas, 8, "0", STR_PAD_LEFT);
+
+
+		 $subtotalcab = str_replace(",", "", $subtotalcab);
+          $igvcab = str_replace(",", "", $igvcab);
+           $totalcab = str_replace(",", "", $totalcab);
+            $preciotexto = str_replace(",", "", $preciotexto);
+
+		$sqlfac = "INSERT INTO tb_facturacion_cab (id_sucursal, id_tipo_documento, n_documento, id_cliente, valor_total, igv_total, precio_total, id_usuario_creador, fecha_creado , id_usuario_modificador, fecha_modificado, id_moneda, id_bus, precio_texto, fecha_envio, codigo, id_sucursal_llegada, id_tipo) VALUES ('$idsucupartida','$tipdoc','$ndocumento','$id_cliente', '$subtotalcab', '$igvcab', '$totalcab', '$usuario', '$fecha', '1', '$fecha', '1','$id_bus', '$preciotexto', '$fecha', '$codigo', $id_sucu_llegada, 2)";
+		$insert_tmp=mysqli_query($con, $sqlfac);
 
 		$count_query   = mysqli_query($con, "SELECT id_facturacion FROM tb_facturacion_cab ORDER BY id_facturacion DESC limit 1");
 		$row= mysqli_fetch_array($count_query);
 		$idfactura = $row['id_facturacion'];
 
-		$sqldet = "INSERT INTO tb_facturacion_det (id_facturacion, cantidad, id_categoria, id_producto, precio_unitario, igv_total, precio_total, descripccion) VALUES ('$idfactura','1','1','1', $subtotal, $igv, $total, '$desc')";
-		$insert_sqldet = mysqli_query($con, $sqldet);
-		//print_r($sqldet);
-		$count_queryasiento   = mysqli_query($con, "SELECT id_buses_det FROM tb_buses_det where id_bus = $id_bus and piso = $piso and asiento =$asiento");
-		$rowasiento= mysqli_fetch_array($count_queryasiento);
-		$idbusdet = $rowasiento['id_buses_det'];
-
-		$sqlasiento = "INSERT INTO tb_control_asientos (id_bus, id_bus_det, estado, estado_general, fecha) VALUES ('$id_bus','$idbusdet','2','1', '$fenvio')";
-		//print_r($sqlasiento);die();
-		$insert_sqlasiento = mysqli_query($con, $sqlasiento);
-
-
-
-		/*Facturacion electronica
+		$sqldetencomienda=mysqli_query($con, "select * from tb_encomienda_det where tb_encomienda_det.codigo='".$codigo."'");
 
 		$P = "|";
 
-		$querysucursal   = mysqli_query($con, "SELECT * FROM tb_sucursales where id_sucursal = $sucursal ");
-		$fetchsucursal= mysqli_fetch_array($querysucursal);
-
-		$qureryfac   = mysqli_query($con, "SELECT count(*) filas FROM tb_facturacion_cab WHERE id_tipo in (3,1) and id_sucursal = $sucursal and id_tipo_documento= $tipdoc");
-		$fetchfac= mysqli_fetch_array($qureryfac);
-		$filas = ($fetchfac['filas'] == 0) ? 1 : $fetchfac['filas'];
-
-		$doct = ($tipdoc==1) ? "01" : "03" ;		
-		$serie = ($tipdoc==1) ? $fetchsucursal['serie_factura_viaje'] : $fetchsucursal['serie_boleta_viaje']  ;
-
-
 		$nombre_archivo= "20601621241-".$doct."-".$serie."-".str_pad($filas, 8, "0", STR_PAD_LEFT);
-		$ruta_servidor = "C:\SFS_v1.2\sunat_archivos\sfs\DATA\\";
+		$ruta_servidor = "C:\SFS_v1.3.4.2\sunat_archivos\sfs\DATA\\";
 
 		$ruta_archivo['info'][1]['ruta'] =$ruta_servidor.$nombre_archivo.".det";
-		$ruta_archivo['info'][1]['data'] =
-            "ZZ".$P. //Unidad de medida
-            "1".$P. // Cantidad
-            "cod01".$P. // Codigo Producto 
-            "-".$P. // Codigo Producto Sunat --
-            "Piso # ".$piso." Asiento # ".$asiento." ".$P. // Descripcion
-            $preciotexto.$P. // Valor Unitario (Sin IGV) pero multiplicado por la cantidad
-            "0.00".$P. // Sumatorio Tributo  9+16+26
-            "9997".$P. //Codigo Tipo Triburo Catalogo N° 5
-            "0.00".$P. // Monto Total IGV por item 
-            $preciotexto.$P. // Tributo: Base Imponible IGV por Item
-            "EXO".$P. // Nombre Tributo Catalogo N° 5
-            "VAT".$P. // Codigo Tributo Catalogo N° 5
-            "20".$P. // Catalogo N° 7 
-            "18".$P. // 
-            "-".$P. // Codigo Tipo ISC Catalogo N° 5 (si no es afecto "-") y valores vacios
-            "".$P. // Monto de ISC por ítem
-            "".$P. // Monto de ISC por ítem
-            "".$P. // Nombre de tributo por item Catalogo N° 5
-            "".$P. // Código de tipo de tributo por Item Catalogo N° 5
-            "".$P. // Tipo de sistema ISC Catalogo N° 8
-            "".$P. // Porcentaje de ISC por Item (normalmente 15.00)
-            "-".$P. // Codigo Tipo Otros Catalogo N° 5 (si no es afecto "-") y valores vacios
-            "".$P. // Monto de tributo OTRO por iItem
-            "".$P. // Base Imponible de tributo OTRO por Item
-            "".$P. // Nombre de tributo OTRO por item Catalogo N° 5
-            "".$P. // Código de tipo de tributo OTRO por Item Catalogo N° 5
-            "".$P. // Porcentaje de tributo OTRO por Item (normalmente 15.00)
-            $preciotexto.$P. // Precio unitario (incluye IGV-ISC-OTROS)
-            $preciotexto.$P.//number_format($total,2,'.','').$P. // Precio unitario por item * Cantidad (sin igv)
-            "0.00".$P; //Valor REFERENCIAL unitario (gratuitos)
+		$ruta_archivo['info'][1]['data'] = "";
 
-        $querycliente   = mysqli_query($con, "SELECT * FROM tb_cliente where id_cliente = $cliente ");
+
+        while ($row=mysqli_fetch_array($sqldetencomienda))
+        {   
+            $desc=$row['producto'];
+            $cantidad=$row['cantidad'];
+
+            if ($tipdoc == 1) {
+
+                $subtotal = number_format($row['precio'],2,'.','');
+                $igv = (($subtotal * 18 ) / 100) * $cantidad;
+                $igv = number_format($igv,2,'.','');
+                $total = number_format($row['precio'],2,'.','');
+
+                $subtotalparafe=number_format($row['precio'],2,'.','');
+                $codigodigito = "1000";
+                $textoigv = "IGV";
+                $codigoigv = "10";
+                $vat = "VAT";
+            }else{
+                $subtotal = number_format($row['precio'],2,'.','');
+                $igv = (($subtotal * 18 ) / 100) * $cantidad;
+                $igv = number_format($igv,2,'.','');
+                $total = number_format($row['precio'],2,'.','');
+                $subtotalparafe=number_format($row['precio'],2,'.','');
+                $codigodigito = "9998";
+                $textoigv = "INA";
+                $codigoigv = "30";
+                $vat = "FRE";
+            }
+			
+
+			$sqldet = "INSERT INTO tb_facturacion_det (id_facturacion, cantidad, id_categoria, id_producto, precio_unitario, igv_total, precio_total, descripccion) VALUES ('$idfactura','$cantidad','1','1', $subtotal, $igv, $total, '$desc')";
+            //print_r($sqldet);die();
+			$insert_sqldet = mysqli_query($con, $sqldet);
+
+
+			$ruta_archivo['info'][1]['data'] .=
+	            "NIU".$P. //Unidad de medida
+	            $row['cantidad'].$P. // Cantidad
+	            "cod01".$P. // Codigo Producto 
+	            "-".$P. // Codigo Producto Sunat --
+	            trim($row['descripcion']).$P. // Descripcion
+	            $subtotalparafe.$P. // Valor Unitario (Sin IGV) pero multiplicado por la cantidad
+	            $igv.$P. // Sumatorio Tributo  9+16+26
+	            $codigodigito.$P. //Codigo Tipo Triburo Catalogo N° 5
+	            $igv.$P. // Monto Total IGV por item 
+	            $subtotalparafe.$P. // Tributo: Base Imponible IGV por Item
+	            $textoigv.$P. // Nombre Tributo Catalogo N° 5
+	            $vat.$P. // Codigo Tributo Catalogo N° 5
+	            $codigoigv.$P. // Catalogo N° 7 
+	            "18".$P. // 
+	            "-".$P. // Codigo Tipo ISC Catalogo N° 5 (si no es afecto "-") y valores vacios
+	            "".$P. // Monto de ISC por ítem
+	            "".$P. // Monto de ISC por ítem
+	            "".$P. // Nombre de tributo por item Catalogo N° 5
+	            "".$P. // Código de tipo de tributo por Item Catalogo N° 5
+	            "".$P. // Tipo de sistema ISC Catalogo N° 8
+	            "".$P. // Porcentaje de ISC por Item (normalmente 15.00)
+	            "-".$P. // Codigo Tipo Otros Catalogo N° 5 (si no es afecto "-") y valores vacios
+	            "".$P. // Monto de tributo OTRO por iItem
+	            "".$P. // Base Imponible de tributo OTRO por Item
+	            "".$P. // Nombre de tributo OTRO por item Catalogo N° 5
+	            "".$P. // Código de tipo de tributo OTRO por Item Catalogo N° 5
+	            "".$P. // Porcentaje de tributo OTRO por Item (normalmente 15.00)
+
+                "-".$P. // ICBPER
+                "".$P. // ICBPER
+                "".$P. // ICBPER
+                "".$P. // ICBPER
+                "".$P. // ICBPER
+                "".$P. // ICBPER
+	            $totalcab.$P. // Precio unitario (incluye IGV-ISC-OTROS)
+	            $subtotalparafe.$P.//number_format($total,2,'.','').$P. // Precio unitario por item * Cantidad (sin igv)
+	            "0.00".$P."\n"; //Valor REFERENCIAL unitario (gratuitos)
+
+		}
+
+		
+		
+		/*-------------------------------------*/
+
+
+		
+
+        $querycliente   = mysqli_query($con, "SELECT * FROM tb_cliente where id_cliente = $id_cliente ");
 		$fetchcliente= mysqli_fetch_array($querycliente);
 
         $ruta_archivo['info'][0]['ruta'] =$ruta_servidor.$nombre_archivo.".cab";
@@ -132,29 +181,42 @@ $session_id= session_id();
             $fetchcliente['n_documento_identidad'].$P. // Numero de documento
             $fetchcliente['nombre_cliente'].$P. // Nombre de usuario
             "PEN".$P. // Tipo moneda Catalogo N° 2  
-            "0.00".$P. //Sumatoria de tributo
-            "0.00".$P. // Total Valor Venta (total sin igv)
-            $preciotexto.$P. //TOTAL (incluye IGV) 
+            $igvcab.$P. //Sumatoria de tributo
+            $subtotalcab.$P. // Total Valor Venta (total sin igv)
+            $totalcab.$P. //TOTAL (incluye IGV) 
             "0.00".$P. // Total descuentos
             "0".$P. // Sumatoria otros Cargos
             "0".$P. // Total Anticipos
-            $preciotexto.$P. //TOTAL - descuento + Otros cargos - Anticipos
+            $totalcab.$P. //TOTAL - descuento + Otros cargos - Anticipos
             "2.1".$P. // Version UBL
             "2.0".$P; // Customization
 
+$resultado = str_replace(",", "", $totalcab);
 
         $ruta_archivo['info'][2]['ruta'] =$ruta_servidor.$nombre_archivo.".ley";
         $ruta_archivo['info'][2]['data'] = 
             "1000".$P. //Código de leyenda
-            numtoletras(number_format($preciotexto ,2,'.','')).$P; //Descripcion de leyenda
-            
-        $ruta_archivo['info'][3]['ruta'] =$ruta_servidor.$nombre_archivo.".tri";
-        $ruta_archivo['info'][3]['data'] =
-            "9997".$P. // Identificador de Tributo Catalogo N° 5
-            "EXO".$P. // Nombre de tributo Catalogo N° 5
+            numtoletras(number_format($resultado,2,'.','')).$P; //Descripcion de leyenda
+
+        if ($tipdoc == 1) {
+            $ruta_archivo['info'][3]['ruta'] =$ruta_servidor.$nombre_archivo.".tri";
+            $ruta_archivo['info'][3]['data'] =
+            "1000".$P. // Identificador de Tributo Catalogo N° 5
+            "IGV".$P. // Nombre de tributo Catalogo N° 5
             "VAT".$P. // Codigo de Tributo Catalogo N°5
-            $preciotexto.$P. // Base Inponible
+            $subtotalcab.$P. // Base Inponible
+            $igvcab.$P;// Monto Tributo por Item;
+        }else{
+            $ruta_archivo['info'][3]['ruta'] =$ruta_servidor.$nombre_archivo.".tri";
+            $ruta_archivo['info'][3]['data'] =
+            "9998".$P. // Identificador de Tributo Catalogo N° 5
+            "INA".$P. // Nombre de tributo Catalogo N° 5
+            "FRE".$P. // Codigo de Tributo Catalogo N°5
+            $subtotalcab.$P. // Base Inponible
             "0".$P;// Monto Tributo por Item;
+        }
+            
+      
 
         foreach ($ruta_archivo['info'] as $key => $value) {
             if($archivo = fopen($value['ruta'] , "w+")) //a
@@ -173,9 +235,9 @@ $session_id= session_id();
             }  
         }
 
-        //print_r($insert_tmp."-");
-		if ($insert_tmp && $insert_sqldet && $insert_sqlasiento && $respo){
-			echo $idfactura."-El documento fue creada correctamente";
+
+		if ($respo){
+			echo $id_encomienda."-El documento fue creada correctamente";
 		} else{
 			echo "0-Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
 		}
@@ -185,8 +247,7 @@ $session_id= session_id();
 
 
 
-
-	function numtoletras($xcifra)
+function numtoletras($xcifra)
     {
         $xarray = array(0 => "Cero",
             1 => "UN", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE",
@@ -194,7 +255,6 @@ $session_id= session_id();
             "VEINTI", 30 => "TREINTA", 40 => "CUARENTA", 50 => "CINCUENTA", 60 => "SESENTA", 70 => "SETENTA", 80 => "OCHENTA", 90 => "NOVENTA",
             100 => "CIENTO", 200 => "DOSCIENTOS", 300 => "TRESCIENTOS", 400 => "CUATROCIENTOS", 500 => "QUINIENTOS", 600 => "SEISCIENTOS", 700 => "SETECIENTOS", 800 => "OCHOCIENTOS", 900 => "NOVECIENTOS"
         );
-    //
         $xcifra = trim($xcifra);
         $xlength = strlen($xcifra);
         $xpos_punto = strpos($xcifra, ".");
@@ -338,5 +398,3 @@ $session_id= session_id();
         //
         return $xsub;
     }
-
-*/
