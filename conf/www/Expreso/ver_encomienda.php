@@ -72,136 +72,147 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <?php include("head.php");?>
-  </head>
-  <link rel="icon"  href="img/expreso.jpg">
-  <body>
-	<?php
+</head>
+<link rel="icon" href="img/expreso.jpg">
+
+<body>
+    <?php
 	include("navbar.php");
-	?>  
+	?>
     <div class="container">
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<div class="btn-group pull-right">
-			<a class="btn btn-info" href="encomienda.php"><span class="glyphicon glyphicon-arrow-left" ></span> Regresar</a>
-		</div>
-			<h4><i class='glyphicon glyphicon-edit'></i> Ver Encomienda</h4>
-		</div>
-		<div class="panel-body">
-<form class="form-horizontal" role="form" id="datos_factura">
-	<div class="form-group row">
-		<label for="n_documento" class="col-md-1 control-label">Codigo</label>
-	<div class="col-md-2">
-		<input style="width: 120px;" type="text" readonly class="form-control input-sm" id="n_documento" required value="<?php echo $codigo;?>">	
-	</div>
-<label for="nombre_cliente" class="col-md-1 control-label">Cliente</label>
- <div class="col-md-2">
- 	<input style="width: 120px;" type="text" readonly class="form-control input-sm" id="nombre_cliente" placeholder="Selecciona un cliente" required value="<?php echo $nombre_cliente;?>">
-<input id="id_cliente" name="id_cliente" type='hidden' value="<?php echo $id_cliente;?>">
- </div>
- <label for="tel1" class="col-md-1 control-label"><?php echo $docidentidad; ?> </label>
- <div class="col-md-2">
-	<input style="width: 120px;" type="text" class="form-control input-sm" id="tel1" placeholder="Teléfono" value="<?php echo $n_documento;?>" readonly>
-</div>
-</div>
-<div class="form-group row">
-	<?php if ($docidentidad == "DNI") { ?>
-		 <label for="id_consignatario" class="col-md-1 control-label">Destinatario</label>
-		 <div class="col-md-2">
-			<input style="width: 120px;" type="text" readonly class="form-control input-sm" id="id_consignatario" value="<?php echo $cosignatario; ?>">	
-</div>	<?php } ?> 
-		<label for="dni" class="col-md-1 control-label">DNI</label>
-		<div class="col-md-2">
-		<input style="width: 120px;" type="text" readonly class="form-control input-sm" id="dni" value="<?php echo $dni; ?>">	
-		</div>
-		<label for="celular" class="col-md-1 control-label">Celular</label>
-		<div class="col-md-2">
-			 <input style="width: 120px;" type="text" readonly class="form-control input-sm" id="celular" value="<?php echo $cel; ?>">
-		</div>
-</div>
-<div class="form-group row">
-	<label for="delivery" class="col-md-1 control-label">Entrega</label>
-		<div class="col-md-2">
-			<input style="width: 120px;" type="text" class="form-control input-sm" id="delivery" placeholder="Entrega" readonly  value="<?php echo $delivery;?>">
-		</div>	
-<label for="direccion_delivery" class="col-md-1 control-label">Dirección</label>
-<div class="col-md-2">
-	<input style="width: 120px;" type="text" class="form-control input-sm" id="direccion_delivery" placeholder="Dirección" readonly  value="<?php echo $direccion_delivery;?>">
-</div>
- <label for="email" class="col-md-1 control-label">Destino</label>
- <div class="col-md-2">
- 	<input style="width: 120px;" type="text" class="form-control input-sm" id="sucursal_llegada" value="<?php echo $sucursal;?>" readonly>
- </div>
-</div>
-<div class="form-group row">
-			<label for="pago" class="col-md-1 control-label">Pago</label>
-			<div class="col-md-2">
-				<input style="width: 120px;" type="text" class="form-control input-sm" name="id_pago"id="id_pago" placeholder="Pago" readonly  value="<?php echo $pago;?>">
-			</div>
-	<!--<label  for="conductor" class="col-md-1 control-label">Conductor</label>
- 	<div class="col-md-2">
- 	<input style="width: 120px;" type="text" readonly class="form-control input-sm" id="conductor" value="<?php echo  $conductor;?>" name="conductor">
-	</div>-->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="btn-group pull-right">
+                    <a class="btn btn-info" href="encomienda.php"><span class="glyphicon glyphicon-arrow-left"></span>
+                        Regresar</a>
+                </div>
+                <h4><i class='glyphicon glyphicon-edit'></i> Ver Encomienda</h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal" role="form" id="datos_factura">
+                    <div class="form-group row">
+                        <label for="n_documento" class="col-md-1 control-label">Codigo</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" readonly class="form-control input-sm"
+                                id="n_documento" required value="<?php echo $codigo;?>">
+                        </div>
+                        <label for="nombre_cliente" class="col-md-1 control-label">Cliente</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" readonly class="form-control input-sm"
+                                id="nombre_cliente" placeholder="Selecciona un cliente" required
+                                value="<?php echo $nombre_cliente;?>">
+                            <input id="id_cliente" name="id_cliente" type='hidden' value="<?php echo $id_cliente;?>">
+                        </div>
+                        <label for="tel1" class="col-md-1 control-label"><?php echo $docidentidad; ?> </label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" class="form-control input-sm" id="tel1"
+                                placeholder="Teléfono" value="<?php echo $n_documento;?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <?php if ($docidentidad == "DNI") { ?>
+                        <label for="id_consignatario" class="col-md-1 control-label">Destinatario</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" readonly class="form-control input-sm"
+                                id="id_consignatario" value="<?php echo $cosignatario; ?>">
+                        </div> <?php } ?>
+                        <label for="dni" class="col-md-1 control-label">DNI</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" readonly class="form-control input-sm" id="dni"
+                                value="<?php echo $dni; ?>">
+                        </div>
+                        <label for="celular" class="col-md-1 control-label">Celular</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" readonly class="form-control input-sm" id="celular"
+                                value="<?php echo $cel; ?>">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="delivery" class="col-md-1 control-label">Entrega</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" class="form-control input-sm" id="delivery"
+                                placeholder="Entrega" readonly value="<?php echo $delivery;?>">
+                        </div>
+                        <label for="direccion_delivery" class="col-md-1 control-label">Dirección</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" class="form-control input-sm"
+                                id="direccion_delivery" placeholder="Dirección" readonly
+                                value="<?php echo $direccion_delivery;?>">
+                        </div>
+                        <label for="email" class="col-md-1 control-label">Destino</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" class="form-control input-sm" id="sucursal_llegada"
+                                value="<?php echo $sucursal;?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="pago" class="col-md-1 control-label">Pago</label>
+                        <div class="col-md-2">
+                            <input style="width: 120px;" type="text" class="form-control input-sm" name="id_pago"
+                                id="id_pago" placeholder="Pago" readonly value="<?php echo $pago;?>">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="editar_factura" class='col-md-12' style="margin-top:10px"></div>
+                        <!-- Carga los datos ajax -->
+                        <div id="resultados" class='col-md-12' style="margin-top:10px">
 
-			<div class="clearfix"></div>
-			<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->	
-			<div id="resultados" class='col-md-12' style="margin-top:10px">
-			
-			<table class="table" id="tabledetalle">
-			<tbody>
-				<tr>
-					<th class="text-center">#</th>
-					<th class="text-center">Cantidad</th>
-					<th>Descripción</th>
-					<th class="text-right">Precio Unitario</th>
-					<th class="text-right">Precio Total</th>
-					<th></th>
-				</tr>
-				<?php 	
+                            <table class="table" id="tabledetalle">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Cantidad</th>
+                                        <th>Descripción</th>
+                                        <th class="text-right">Precio Unitario</th>
+                                        <th class="text-right">Precio Total</th>
+                                        <th></th>
+                                    </tr>
+                                    <?php 	
 
-			$sqltabledet=mysqli_query($con, "select * from tb_facturacion_det where id_facturacion ='".$id_facturacion."'");
-			//print_r($id_facturacion."wsdadasda");
-			$hash = 0 ;
-				while ($rows=mysqli_fetch_array($sqltabledet)){  $hash++; ?>
-						<tr class="precios">
-							<td class="text-center"><?php echo $hash; ?></td>
-							<td class="text-center"><?php echo $rows['cantidad']; ?></td>
-							<td class="desc"><?php echo $rows['descripccion']; ?></td>
-							<td class="text-right valor"><?php echo $rows['precio_unitario']; ?></td>
-							<td class="text-right preciototal"><?php echo $rows['precio_total']; ?></td>
-							<td class="text-center"></td>
-						</tr>
-				<?php } ?>	
-				<tr class="subtotal">
-					<td class="text-right" colspan="4">SUBTOTAL S/.</td>
-					<td class="text-right valor"><?php echo $subt; ?></td>
-					<td></td>
-				</tr>
-				<tr class="igv">
-					<td class="text-right" colspan="4">IGV (18)% S/.</td>
-					<td class="text-right valor"><?php echo $igvf; ?></td>
-					<td class="text-center"></td>
-				</tr>
-				<tr class="total">
-					<td class="text-right" colspan="4">TOTAL S/.</td>
-					<td class="text-right valor"><?php echo $pre; ?></td>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
-		</div><!-- Carga los datos ajax -->			
-			
-		</div>
-	</div>		
-		 
-	</div>
-	<hr>
-	<?php
+					$sqltabledet=mysqli_query($con, "select * from tb_facturacion_det where id_facturacion ='".$id_facturacion."'");
+					//print_r($id_facturacion."wsdadasda");
+					$hash = 0 ;
+					while ($rows=mysqli_fetch_array($sqltabledet)){  $hash++; ?>
+                                    <tr class="precios">
+                                        <td class="text-center"><?php echo $hash; ?></td>
+                                        <td class="text-center"><?php echo $rows['cantidad']; ?></td>
+                                        <td class="desc"><?php echo $rows['descripccion']; ?></td>
+                                        <td class="text-right valor"><?php echo $rows['precio_unitario']; ?></td>
+                                        <td class="text-right preciototal"><?php echo $rows['precio_total']; ?></td>
+                                        <td class="text-center"></td>
+                                    </tr>
+                                    <?php } ?>
+                                    <tr class="subtotal">
+                                        <td class="text-right" colspan="4">SUBTOTAL S/.</td>
+                                        <td class="text-right valor"><?php echo $subt; ?></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="igv">
+                                        <td class="text-right" colspan="4">IGV (18)% S/.</td>
+                                        <td class="text-right valor"><?php echo $igvf; ?></td>
+                                        <td class="text-center"></td>
+                                    </tr>
+                                    <tr class="total">
+                                        <td class="text-right" colspan="4">TOTAL S/.</td>
+                                        <td class="text-right valor"><?php echo $pre; ?></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><!-- Carga los datos ajax -->
+                    </div>
+            </div>
+
+        </div>
+        <hr>
+        <?php
 	include("footer.php");
 	?>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-  </body>
+</body>
+
 </html>

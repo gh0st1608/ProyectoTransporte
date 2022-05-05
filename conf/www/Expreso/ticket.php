@@ -106,6 +106,7 @@ date_default_timezone_set("America/Lima");
             <br><strong>Dirección: </strong> Av. Alfredo Mendiola 4050 PERU -LIMA
             <br><strong>Fecha: </strong><?php $time = time(); echo date("d-m-Y (H:i:s)", $time);?>
             <br><strong>Ticket: Nª  </strong><?php echo $id_encomienda;?>
+            <br><strong>Tipo de pago: </strong><?php echo $pago;?>
         </h1>
         </h1>
         <p>
