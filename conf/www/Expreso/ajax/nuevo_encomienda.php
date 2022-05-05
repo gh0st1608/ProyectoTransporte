@@ -32,10 +32,11 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
 		$direccion_delivery = $_POST['direccion_delivery'];
 		$conductor = $_POST['conductor'];
 		$encargado = $_POST['id_encargado'];
+		$id_pago = $_POST['id_pago'];
 		print_r($dni);
 		print_r($sucursal_partida);
 
-		$sql="INSERT INTO tb_encomienda_cab(id_cliente,id_usuario,id_bus,id_sucursal_partida,id_sucursal_llegada,situacion,id_usuario_creador,fecha_creado,celular,dni,delivery,direccion_delivery,conductor,id_encargado) VALUES ('$cliente',$usua,'$bus','$sucursal_partida','$sucursal_llegada',$estado,$usu,'$fec','$celular','$dni','$delivery','$direccion_delivery','$conductor','$encargado')";
+		$sql="INSERT INTO tb_encomienda_cab(id_cliente,id_usuario,id_bus,id_sucursal_partida,id_sucursal_llegada,situacion,id_usuario_creador,fecha_creado,celular,dni,delivery,direccion_delivery,conductor,id_encargado) VALUES ('$cliente',$usua,'$bus','$sucursal_partida','$sucursal_llegada',$estado,$usu,'$fec','$celular','$dni','$delivery','$direccion_delivery','$conductor','$encargado',$id_pago)";
 //print_r($sql);
 
 		$query_new_insert = mysqli_query($con,$sql);

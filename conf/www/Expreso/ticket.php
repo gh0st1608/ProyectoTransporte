@@ -39,7 +39,7 @@ date_default_timezone_set("America/Lima");
 				$celular_consignatario = $rw_encomienda['celular'];
 				$dni = $rw_encomienda['dni'];
                 $sucursal = $rw_encomienda['nombre_sucursal'];
-                $conductor = $rw_encomienda['conductor'];
+                //$conductor = $rw_encomienda['conductor'];
                 $delivery = $rw_encomienda['delivery']  ;
                 $direccion_delivery = $rw_encomienda['direccion_delivery'];
 
@@ -60,8 +60,10 @@ date_default_timezone_set("America/Lima");
                 $sqldetencomienda = mysqli_query($con,"select * from tb_encomienda_det where codigo='".$codigo."'");
                 $rw_encomiendadet=mysqli_fetch_array($sqldetencomienda);
 
-               $precio_delivery = $rw_encomiendadet['precio_delivery'];
-              
+                $precio_delivery = $rw_encomiendadet['precio_delivery'];
+                $sqlpago = mysqli_query($con,"select * from tb_pago");
+                $rw_pago = mysqli_fetch_array($sqlpago);
+                $pago = $rw_pago['pago'];
                 
 				/*$count_queryasientoss   = mysqli_query($con, "SELECT tb_cliente.n_documento_identidad, tb_cliente.nombre_cliente FROM tb_encomienda_cab,tb_cliente where tb_encomienda_cab.id_consignatario = tb_cliente.id_cliente and tb_encomienda_cab.id_encomienda='".$id_encomienda."'");
 	    		$rowasientoss= mysqli_fetch_array($count_queryasientoss);

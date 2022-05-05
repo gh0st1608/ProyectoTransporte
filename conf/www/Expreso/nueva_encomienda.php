@@ -26,6 +26,9 @@ require_once "config/conexion.php"; //Contiene funcion que conecta a la base de 
 		$query1 ="SELECT * FROM tb_buses";
 	$fetch1 = mysqli_query($con,$query1);
 
+    $query3 ="SELECT * FROM tb_pago";
+	$fetch3 = mysqli_query($con,$query3);
+
 
 
 ?>
@@ -68,7 +71,7 @@ include "modal/registro_clientes.php";
                                             required>
 
                                     </div>
-                                    <label style="font-size: 12px" for="tel1" class="col-md-1 control-label">DNI</label>
+                                    <label style="font-size: 12px"  class="col-md-1 control-label">DNI</label>
                                     <div class="col-md-3">
                                         <input style="width: 150px" type="text" class="form-control input-sm"
                                             id="Didentidad" value="" name="Didentidad"
@@ -84,7 +87,6 @@ include "modal/registro_clientes.php";
                                 </div>
 
                                 <div class="form-group row">
-
                                     <label style="font-size: 12px" for="consignatario"
                                         class="col-md-1 control-label">Destinatario</label>
                                     <div class="col-md-3">
@@ -106,29 +108,7 @@ include "modal/registro_clientes.php";
                                     </div>
                                 </div class="form-group row">
                                 <div class="form-group row">
-                                        <label style="font-size: 12px" for="email" class="col-md-1 control-label">Destino</label>
-                                        <div class="col-md-3">
-                                            <select style="width: 150px" class="form-control" id="sucursal_llegada"
-                                            name="id_sucu_llegada">
-                                            <option value="">Seleccione</option>
-                                            <?php
-											while ($row = mysqli_fetch_array($fetch)) {
-											?>
-                                            <option value="<?php echo $row['id_sucursal']?>">
-                                                <?php echo $row['nombre_sucursal'] ?></option>
-                                            <?php
-											}
-											?>
-                                            </select>
-                                        </div>
-                                    <!--<label style="font-size: 12px" for="conductor"
-                                        class="col-md-1 control-label">Conductor</label>
-                                    <div class="col-md-3">
-                                        <input style="width: 150px" type="text" class="form-control input-sm"
-                                            id="conductor" value="" name="conductor">
-                                    </div>-->
-                                    <label style="font-size: 12px" for="encargado"
-                                        class="col-md-1 control-label">Encargado</label>
+                                    <label style="font-size: 12px" for="encargado" class="col-md-1 control-label">Encargado</label>
                                     <div class="col-md-3">
                                         <select style="width: 150px" name="id_encargado" id="id_encargado"
                                             class="form-control">
@@ -144,13 +124,24 @@ include "modal/registro_clientes.php";
 											?>
                                         </select>
                                     </div>
-                                    <label style="font-size: 12px" for="tel2"
-                                        class="col-md-1 control-label">Pago</label>
+                                    <label style="font-size: 12px" for="tel2" class="col-md-1 control-label">Tipo</label>
                                     <div class="col-md-3">
-                                        <select onclick="activar();" style="width: 150px" name="tipdoc" id="tipdoc"
-                                            class="form-control">
-                                            <option value="3">Efectivo</option>
-                                            <option value="3">Pago en Destino</option>
+                                            <select onclick="activar();" style="width: 150px" name="tipdoc" id="tipdoc" class="form-control">
+                                            <option value="3">Frágil</option>
+                                            <option value="3">Pesado</option>
+                                            </select>
+                                    </div>
+                                    <label style="font-size: 12px" for="email" class="col-md-1 control-label">Destino</label>
+                                    <div class="col-md-3">
+                                        <select style="width: 150px" class="form-control" id="sucursal_llegada" name="id_sucu_llegada">
+                                            <option value="">Seleccione</option>
+                                            <?php
+                                            while ($row = mysqli_fetch_array($fetch)) {
+                                            ?>
+                                            <option value="<?php echo $row['id_sucursal']?>"><?php echo $row['nombre_sucursal'] ?></option>
+                                            <?php
+                                        }
+                                            ?>
                                         </select>
                                     </div>
                                 </div class="form-group row">
@@ -169,14 +160,11 @@ include "modal/registro_clientes.php";
                                             onclick="activarcaja();activarprecio();datoinput2()">
                                         <input type="text" name="delivery" id="delivery">
                                     </div>
-                                
-                                <div class="form-group row">
                                     <label style="font-size: 12px" class="col-md-1 control-label">Dirección</label>
                                     <div class="col-md-3">
                                         <input style="width: 150px" class="form-control input-sm" type="text"
                                             name="direccion_delivery" id="direccion_delivery" disabled="">
                                     </div>
-                                </div>
                                 </div class="form-group row">
                                 <script type="text/javascript">
                                 function activarcaja() {
@@ -203,6 +191,21 @@ include "modal/registro_clientes.php";
                                     document.getElementById('delivery').value = 'Delivery'
                                 }
                                 </script>
+                                <div class="form-group row" >
+                                    <label style="font-size: 12px" for="pago" class="col-md-1 control-label">Pago</label>
+                                    <div class="col-md-3">
+                                        <select style="width: 150px" class="form-control" id="id_pago" name="id_pago">
+                                            <option value="">Seleccione</option>
+                                            <?php
+                                            while ($row = mysqli_fetch_array($fetch3)) {
+                                            ?>
+                                            <option value="<?php echo $row['id_pago']?>"><?php echo $row['pago'] ?></option>
+                                            <?php
+                                        }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-12" id="cambios">
                                     <div class="pull-right">
                                         <button type="button"  id="guardar_datosgenerales" class="btn btn-default">
@@ -249,9 +252,7 @@ include "modal/registro_clientes.php";
                                         </div>
                                     </div>
                                 </div>
-
                                 <label for="descripcion" class="col-sm-2 control-label"> Descripción</label>
-
                                 <textarea type="text" class="form-control delteimputs" id="descripcion"
                                     name="descripcion" required> </textarea>
                                 <button type="button" onclick="addencomiendasdetalle();" class="form-control btn btn-danger"
@@ -435,7 +436,7 @@ function generarCodigo($longitud)
                 success: function(datos) {
 
                     var idfac = datos.split("-");
-                    //alert(idfac)
+                    alert(idfac)
                     status = (idfac[1] == "El documento fue creada correctamente") ? 'success' :
                         'error';
                     alert(idfac[1]); //undefined

@@ -13,12 +13,13 @@ $session_id= session_id();
 		$tipdoc=mysqli_real_escape_string($con,(strip_tags($_POST['tipdoc'],ENT_QUOTES)));
 		$id_sucu_llegada=mysqli_real_escape_string($con,(strip_tags($_POST['id_sucu_llegada'],ENT_QUOTES)));
 		$fecha=date("Y/m/d", strtotime(mysqli_real_escape_string($con,(strip_tags($_POST['fecha'],ENT_QUOTES)))));
-		$idsucupartida= 49;
+		$idsucupartida= $_SESSION['idsucursal'];
 		$usuario =$_SESSION['user_id'];
         $consignatario=mysqli_real_escape_string($con,(strip_tags($_POST['consignatario'],ENT_QUOTES)));
         $celular=mysqli_real_escape_string($con,(strip_tags($_POST['celular'],ENT_QUOTES)));
         $dni=mysqli_real_escape_string($con,(strip_tags($_POST['dni'],ENT_QUOTES)));
         $delivery=mysqli_real_escape_string($con,(strip_tags($_POST['delivery'],ENT_QUOTES)));
+        $id_pago=mysqli_real_escape_string($con,(strip_tags($_POST['id_pago'],ENT_QUOTES)));
         if(isset($_POST['direccion_delivery'])){
             $direccion_delivery = $_POST['direccion_delivery'];
         }else{
@@ -33,11 +34,11 @@ $session_id= session_id();
 		$preciotexto=mysqli_real_escape_string($con,(strip_tags($_POST['subtotal'],ENT_QUOTES)));
 
 		/*encomienda*/
-		$sqlencocab = "INSERT INTO tb_encomienda_cab (id_cliente,id_usuario,id_bus, id_sucursal_partida, id_sucursal_llegada,id_envio, situacion, id_usuario_creador, fecha_creado, id_usuario_modificador, fecha_modificado, codigo, tipdoc, id_consignatario,celular,dni,delivery,direccion_delivery,conductor,id_encargado) VALUES ($id_cliente,$usuario, $id_bus, $idsucupartida, $id_sucu_llegada,'0','1', $usuario, '$fecha', $usuario, '$fecha', '$codigo', $tipdoc, '$consignatario','$celular','$dni','$delivery','$direccion_delivery','conductor','$encargado')";
+		$sqlencocab = "INSERT INTO tb_encomienda_cab (id_cliente,id_usuario,id_bus, id_sucursal_partida, id_sucursal_llegada,id_envio, situacion, id_usuario_creador, fecha_creado, id_usuario_modificador, fecha_modificado, codigo, tipdoc, id_consignatario,celular,dni,delivery,direccion_delivery,conductor,id_encargado,id_pago) VALUES ($id_cliente,$usuario, $id_bus, $idsucupartida, $id_sucu_llegada,'0','1', $usuario, '$fecha', $usuario, '$fecha', '$codigo', $tipdoc, '$consignatario','$celular','$dni','$delivery','$direccion_delivery','conductor','$encargado','$id_pago')";
 		$insert_encocab=mysqli_query($con, $sqlencocab);
 
         if ($insert_encocab){
-            $messages[] = "Cliente ha sido ingresado satisfactoriamente.";
+            $messages[] = "Encomienda ha sido ingresado satisfactoriamente.";
         } else{
             $errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
         }

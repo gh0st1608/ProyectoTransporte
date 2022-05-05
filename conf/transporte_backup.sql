@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2022 a las 01:14:54
+-- Tiempo de generación: 26-04-2022 a las 15:43:02
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 7.4.27
 
@@ -677,8 +677,9 @@ CREATE TABLE `tb_cliente` (
 --
 
 INSERT INTO `tb_cliente` (`id_cliente`, `id_usuario`, `id_tipo_persona`, `nombre_cliente`, `id_tipo_documento_identidad`, `n_documento_identidad`, `direccion`, `correo`, `telefono`, `id_usuario_creador`, `fecha_creado`, `id_usuario_modificado`, `fecha_modificado`, `estado`, `edad`) VALUES
-(1, 1, 1, 'Gabriela', 1, '71452369', '', '', '', 1, '2022-05-02 00:00:00', 0, '2022-05-02 00:00:00', '1', ''),
-(2, 2, 1, 'Gabriela', 1, '85420143', '', '', '', 2, '2022-05-04 00:00:00', 0, '2022-05-04 00:00:00', '1', '');
+(1, 2, 1, 'Hector Osorio', 1, '74158258', '', '', '960497893', 2, '2022-04-13 00:00:00', 0, '2022-04-13 00:00:00', '1', ''),
+(2, 3, 1, 'Melissa', 1, '753920158', '', '', '', 3, '2022-04-13 00:00:00', 0, '2022-04-13 00:00:00', '1', ''),
+(3, 4, 1, 'Gabriela', 1, '95120748', '', '', '', 4, '2022-04-13 00:00:00', 0, '2022-04-13 00:00:00', '1', '');
 
 -- --------------------------------------------------------
 
@@ -814,16 +815,15 @@ CREATE TABLE `tb_encomienda_cab` (
   `delivery` varchar(40) NOT NULL,
   `direccion_delivery` varchar(250) NOT NULL,
   `conductor` varchar(150) NOT NULL,
-  `id_encargado` int(11) NOT NULL,
-  `id_pago` int(11) NOT NULL
+  `id_encargado` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Volcado de datos para la tabla `tb_encomienda_cab`
 --
 
-INSERT INTO `tb_encomienda_cab` (`id_encomienda`, `id_cliente`, `id_usuario`, `id_bus`, `id_sucursal_partida`, `id_sucursal_llegada`, `id_envio`, `situacion`, `id_usuario_creador`, `fecha_creado`, `id_usuario_modificador`, `fecha_modificado`, `codigo`, `tipdoc`, `id_consignatario`, `celular`, `dni`, `delivery`, `direccion_delivery`, `conductor`, `id_encargado`, `id_pago`) VALUES
-(1, 1, 1, 1, 49, 52, 0, '1', 1, '2022-05-04 00:00:00', 1, '2022-05-04 00:00:00', '696576', 3, 'Juan', 987456250, 85420143, 'Sede', '', '', 1, 2);
+INSERT INTO `tb_encomienda_cab` (`id_encomienda`, `id_cliente`, `id_usuario`, `id_bus`, `id_sucursal_partida`, `id_sucursal_llegada`, `id_envio`, `situacion`, `id_usuario_creador`, `fecha_creado`, `id_usuario_modificador`, `fecha_modificado`, `codigo`, `tipdoc`, `id_consignatario`, `celular`, `dni`, `delivery`, `direccion_delivery`, `conductor`, `id_encargado`) VALUES
+(1, 1, 2, 1, 49, 62, 0, '1', 2, '2022-04-18 00:00:00', 2, '2022-04-18 00:00:00', '855327', 3, 'Perez', 951452024, 85421023, 'Sede', '', 'Pedro', 1);
 
 -- --------------------------------------------------------
 
@@ -851,7 +851,7 @@ CREATE TABLE `tb_encomienda_det` (
 --
 
 INSERT INTO `tb_encomienda_det` (`id_encomienda_det`, `id_encomienda`, `producto`, `peso`, `descripcion`, `cantidad`, `precio`, `estado_detalle`, `fecha_registro`, `codigo`, `si_liquidacion`, `precio_delivery`) VALUES
-(1, 1, 'ccc ', '', 'ccc ', 1, 12, 0, '2022-05-04 00:00:00', '696576', 0, 0);
+(1, 1, 'caja ', '', 'caja ', 1, 30, 0, '2022-04-18 00:00:00', '855327', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -909,7 +909,7 @@ CREATE TABLE `tb_facturacion_cab` (
 --
 
 INSERT INTO `tb_facturacion_cab` (`id_facturacion`, `id_sucursal`, `id_tipo_documento`, `n_documento`, `id_cliente`, `valor_total`, `igv_total`, `precio_total`, `id_usuario_creador`, `fecha_creado`, `id_usuario_modificador`, `fecha_modificado`, `id_moneda`, `id_bus`, `precio_texto`, `fecha_envio`, `codigo`, `id_sucursal_llegada`, `id_tipo`, `consignatario`, `si_liquidacion`, `id_pasajero`) VALUES
-(1, 49, 3, 'B003-00000001', 1, 10.17, 1.83, 12.00, 1, '2022-05-04 00:00:00', 1, '2022-05-04 00:00:00', 1, 1, '10.17', '2022-05-04 00:00:00', '696576', 52, 2, NULL, 0, NULL);
+(1, 49, 3, 'B003-00000001', 1, 25.42, 4.58, 30.00, 2, '2022-04-18 00:00:00', 1, '2022-04-18 00:00:00', 1, 1, '25.42', '2022-04-18 00:00:00', '855327', 62, 2, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -934,7 +934,7 @@ CREATE TABLE `tb_facturacion_det` (
 --
 
 INSERT INTO `tb_facturacion_det` (`id_facturacion_det`, `id_facturacion`, `cantidad`, `id_categoria`, `id_producto`, `precio_unitario`, `igv_total`, `precio_total`, `descripccion`) VALUES
-(1, 1, 1, 1, 1, 12.00, 2.16, 12.00, 'ccc ');
+(1, 1, 1, 1, 1, 30.00, 5.40, 30.00, 'caja ');
 
 -- --------------------------------------------------------
 
@@ -989,25 +989,6 @@ INSERT INTO `tb_moneda` (`id_moneda`, `codigo_sunat`, `descriocion_sunat`, `abre
 (1, 'PEN', 'Nuevo Sol', 'Nuevo Sol', 'S/.', '1', '1'),
 (2, 'EUR', 'Euro', 'Euro', '&euro;', '0', '0'),
 (3, 'USD', 'US Dollar', 'US Dollar', '$', '0', '0');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `tb_pago`
---
-
-CREATE TABLE `tb_pago` (
-  `id_pago` int(11) NOT NULL,
-  `pago` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `tb_pago`
---
-
-INSERT INTO `tb_pago` (`id_pago`, `pago`) VALUES
-(1, 'Efectivo'),
-(2, 'Pago en Destino');
 
 -- --------------------------------------------------------
 
@@ -1108,7 +1089,7 @@ CREATE TABLE `tb_tipo_documentos` (
 --
 
 INSERT INTO `tb_tipo_documentos` (`id_tipo_documento`, `nombre_tipo_documento`) VALUES
-(2, 'Efectivo'),
+(1, 'Efectivo'),
 (3, 'Pago en Destino');
 
 -- --------------------------------------------------------
@@ -1186,8 +1167,7 @@ CREATE TABLE `tb_usuarios` (
 INSERT INTO `tb_usuarios` (`id_usuario`, `nombre_usuario`, `usuario`, `password`, `id_rol`, `id_sucursales`, `estado`) VALUES
 (1, 'MELISSA', 'ADMIN', '$2y$10$h.99.QNmOjDCOLq9QrBfoOwQnDuVSHl6M.DEEttTzoFtu5CFoftqC', 1, 49, '1'),
 (2, 'ANGIE', 'ANGIE', '$2y$10$NSMhV./TVgUJMchF2nvtnu9OpzkIwz8/iBrilkcgKAG4lKBfnNtB6', 0, 49, '1'),
-(3, 'ABIGAIL', 'ABIGAIL', '$2y$10$mVG83bLno.Ow7PvUgHiXHuKDHI7v/98aUzvafD2Zezy8E15sErNYa', 0, 49, '1'),
-(5, 'MARIAELENA BAQUERIZO', 'MARIAELENA', '$2y$10$OflNtZN3kgLn6.PCVEF60Obtip8Buh3A3XJt5/ifqSBxQaf.82t9i', 0, 49, '1');
+(3, 'ABIGAIL', 'ABIGAIL', '$2y$10$mVG83bLno.Ow7PvUgHiXHuKDHI7v/98aUzvafD2Zezy8E15sErNYa', 0, 49, '1');
 
 -- --------------------------------------------------------
 
@@ -1330,12 +1310,6 @@ ALTER TABLE `tb_liquidacion`
 --
 ALTER TABLE `tb_moneda`
   ADD PRIMARY KEY (`id_moneda`) USING BTREE;
-
---
--- Indices de la tabla `tb_pago`
---
-ALTER TABLE `tb_pago`
-  ADD PRIMARY KEY (`id_pago`);
 
 --
 -- Indices de la tabla `tb_producto`
@@ -1486,12 +1460,6 @@ ALTER TABLE `tb_moneda`
   MODIFY `id_moneda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `tb_pago`
---
-ALTER TABLE `tb_pago`
-  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT de la tabla `tb_producto`
 --
 ALTER TABLE `tb_producto`
@@ -1531,7 +1499,7 @@ ALTER TABLE `tb_unidad_medida`
 -- AUTO_INCREMENT de la tabla `tb_usuarios`
 --
 ALTER TABLE `tb_usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tmp`

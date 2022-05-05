@@ -17,9 +17,9 @@
 	if (isset($_GET['id_encomienda']))
 	{
 		$id_encomienda=intval($_GET['id_encomienda']);
-		$campos ="tb_encomienda_cab.codigo, tb_buses.placa, tb_cliente.n_documento_identidad, tb_cliente.nombre_cliente, tb_cliente.direccion, tb_encomienda_cab.tipdoc, tb_sucursales.nombre_sucursal, tb_encomienda_cab.fecha_creado, tb_encomienda_cab.id_consignatario,tb_encomienda_cab.celular,tb_encomienda_cab.dni,tb_encomienda_cab.conductor,tb_encomienda_cab.delivery,tb_encomienda_cab.direccion_delivery";
+		$campos ="tb_encomienda_cab.codigo, tb_buses.placa,tb_cliente.n_documento_identidad, tb_cliente.nombre_cliente, tb_cliente.direccion, tb_encomienda_cab.tipdoc, tb_sucursales.nombre_sucursal, tb_encomienda_cab.fecha_creado, tb_encomienda_cab.id_consignatario,tb_encomienda_cab.celular,tb_encomienda_cab.dni,tb_encomienda_cab.delivery,tb_encomienda_cab.direccion_delivery,tb_encomienda_cab.id_pago,tb_pago.pago";
 
-		$sql_enco=mysqli_query($con,"select $campos from tb_encomienda_cab, tb_buses, tb_cliente , tb_sucursales where tb_buses.id_bus =  tb_encomienda_cab.id_bus and tb_encomienda_cab.id_cliente = tb_cliente.id_cliente and tb_encomienda_cab.id_sucursal_llegada = tb_sucursales.id_sucursal and tb_encomienda_cab.id_encomienda='".$id_encomienda."'");
+		$sql_enco=mysqli_query($con,"select $campos from tb_encomienda_cab, tb_buses, tb_cliente , tb_sucursales, tb_pago where tb_buses.id_bus =  tb_encomienda_cab.id_bus and tb_encomienda_cab.id_cliente = tb_cliente.id_cliente and tb_encomienda_cab.id_sucursal_llegada = tb_sucursales.id_sucursal and tb_encomienda_cab.id_encomienda='".$id_encomienda."' and tb_encomienda_cab.id_pago = tb_pago.id_pago");
 		$countenco=mysqli_num_rows($sql_enco);
 
 		if ($countenco == 1)
@@ -35,10 +35,12 @@
 				$cosignatario = $rw_encomienda['id_consignatario'];
 				$cel = $rw_encomienda['celular'];
 				$dni = $rw_encomienda['dni'];
-				$conductor = $rw_encomienda['conductor'];
+				//$conductor = $rw_encomienda['conductor'];
 				$sucursal = $rw_encomienda['nombre_sucursal'];
 				$delivery = $rw_encomienda['delivery'];
 				$direccion_delivery = $rw_encomienda['direccion_delivery'];
+				$id_pago = $rw_encomienda['id_pago'];
+				$pago = $rw_encomienda['pago'];
 			
 
 				$sqlfact = mysqli_query($con,"select * from tb_facturacion_cab where codigo='".$codigo."'");
@@ -133,15 +135,18 @@
  </div>
 </div>
 <div class="form-group row">
+			<label for="pago" class="col-md-1 control-label">Pago</label>
+			<div class="col-md-2">
+				<input style="width: 120px;" type="text" class="form-control input-sm" name="id_pago"id="id_pago" placeholder="Pago" readonly  value="<?php echo $pago;?>">
+			</div>
 	<!--<label  for="conductor" class="col-md-1 control-label">Conductor</label>
  	<div class="col-md-2">
  	<input style="width: 120px;" type="text" readonly class="form-control input-sm" id="conductor" value="<?php echo  $conductor;?>" name="conductor">
 	</div>-->
 
 			<div class="clearfix"></div>
-				<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->	
-			
-		<div id="resultados" class='col-md-12' style="margin-top:10px">
+			<div class="editar_factura" class='col-md-12' style="margin-top:10px"></div><!-- Carga los datos ajax -->	
+			<div id="resultados" class='col-md-12' style="margin-top:10px">
 			
 			<table class="table" id="tabledetalle">
 			<tbody>

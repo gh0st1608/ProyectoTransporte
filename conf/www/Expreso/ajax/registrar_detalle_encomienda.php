@@ -39,6 +39,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
 		$id_encomienda=(isset($_POST["id_encomienda"])) ? mysqli_real_escape_string($con,(strip_tags($_POST["id_encomienda"],ENT_QUOTES))) : "0";
 		$envio=mysqli_real_escape_string($con,(strip_tags($_POST["envio"],ENT_QUOTES)));
 		$precio_delivery=mysqli_real_escape_string($con,(strip_tags($_POST["precio_delivery"],ENT_QUOTES)));
+		$id_pago=mysqli_real_escape_string($con,(strip_tags($_POST["id_pago"],ENT_QUOTES))); //agregado pedrito
 		$date_added=date("Y-m-d H:i:s");
 		// $placa=intval($_POST['placa']);
 
