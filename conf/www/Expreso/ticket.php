@@ -13,12 +13,15 @@ date_default_timezone_set("America/Lima");
 	if (isset($_GET['id_encomienda']))
 	{
 		$id_encomienda=intval($_GET['id_encomienda']);
-  		$campos ="tb_encomienda_cab.codigo, tb_buses.placa, tb_cliente.n_documento_identidad, tb_cliente.nombre_cliente, tb_cliente.telefono, tb_cliente.direccion, tb_encomienda_cab.tipdoc, tb_sucursales.nombre_sucursal, tb_encomienda_cab.fecha_creado, tb_encomienda_cab.id_consignatario,tb_encomienda_cab.celular,tb_encomienda_cab.dni,tb_encomienda_cab.id_encomienda,tb_encomienda_cab.conductor,tb_encomienda_cab.delivery,tb_encomienda_cab.direccion_delivery,encargado.nombre";
-        //agregar la tabla encargado.nombre
-    
-		$sql_enco=mysqli_query($con,"select $campos from tb_encomienda_cab,encargado,tb_buses, tb_cliente, tb_sucursales where tb_buses.id_bus =  tb_encomienda_cab.id_bus and encargado.id_encargado = tb_encomienda_cab.id_encargado and tb_encomienda_cab.id_cliente = tb_cliente.id_cliente and tb_encomienda_cab.id_sucursal_llegada = tb_sucursales.id_sucursal and tb_encomienda_cab.id_encomienda='".$id_encomienda."'");
-		//agregar la tabla encargado
+  		$campos ="tb_encomienda_cab.codigo, tb_buses.placa, tb_cliente.n_documento_identidad, tb_cliente.nombre_cliente, tb_cliente.telefono, tb_cliente.direccion, tb_encomienda_cab.tipdoc, tb_sucursales.nombre_sucursal, tb_encomienda_cab.fecha_creado, tb_encomienda_cab.id_consignatario,tb_encomienda_cab.celular,tb_encomienda_cab.dni,tb_encomienda_cab.id_encomienda,tb_encomienda_cab.delivery,tb_encomienda_cab.direccion_delivery,encargado.nombre,tb_pago.pago,tb_encomienda_cab.id_sucursal_partida,tb_encomienda_cab.id_sucursal_llegada,tb_sucursales.direccion_real";
 
+        //agregar la tabla encargado.nombre
+
+    
+		$sql_enco=mysqli_query($con,"select $campos from tb_encomienda_cab,encargado,tb_buses, tb_cliente , tb_pago, tb_sucursales where tb_buses.id_bus =  tb_encomienda_cab.id_bus and encargado.id_encargado = tb_encomienda_cab.id_encargado and tb_encomienda_cab.id_cliente = tb_cliente.id_cliente and tb_encomienda_cab.id_sucursal_llegada = tb_sucursales.id_sucursal and tb_encomienda_cab.id_encomienda='".$id_encomienda."' and
+            tb_encomienda_cab.id_pago=tb_pago.id_pago");
+		//agregar la tabla encargado
+        
         $countenco=mysqli_num_rows($sql_enco);
        // print_r ($countenco);
 		if ($countenco == 1)
@@ -39,8 +42,8 @@ date_default_timezone_set("America/Lima");
 				$celular_consignatario = $rw_encomienda['celular'];
 				$dni = $rw_encomienda['dni'];
                 $sucursal = $rw_encomienda['nombre_sucursal'];
-                //$conductor = $rw_encomienda['conductor'];
-                $delivery = $rw_encomienda['delivery']  ;
+              //$conductor = $rw_encomienda['conductor'];
+                $delivery = $rw_encomienda['delivery'];
                 $direccion_delivery = $rw_encomienda['direccion_delivery'];
 
 			    
@@ -61,10 +64,66 @@ date_default_timezone_set("America/Lima");
                 $rw_encomiendadet=mysqli_fetch_array($sqldetencomienda);
 
                 $precio_delivery = $rw_encomiendadet['precio_delivery'];
-                $sqlpago = mysqli_query($con,"select * from tb_pago");
-                $rw_pago = mysqli_fetch_array($sqlpago);
-                $pago = $rw_pago['pago'];
+
                 
+                //$sqlpago = mysqli_query($con,"select pago from tb_pago");
+                //$rw_pago = mysqli_fetch_array($sqlpago);
+                $pago = $rw_encomienda['pago'];
+
+                /*$sqlsucur = mysqli_query($con,"select direccion from tb_sucursales");
+                $rw_sucur = mysqli_fetch_array($sqlsucur);
+                $sucur = $rw_sucur['direccion'];*/
+
+
+                /*if (!empty($direccion_delivery))
+                {
+                    $direccion_delivery = $rw_encomienda['direccion_delivery'];
+                }else {
+                    $sqlenc = mysqli_query($con,"select id_sucursal_partida from tb_encomienda_cab");
+                    $rw_enc = mysqli_fetch_array($sqlenc);
+                    $enc = $rw_enc['id_sucursal_partida'];
+                    $id_sucursal = $enc;
+                    $direccion_delivery = $sucur;
+                }*/
+
+                /*if (!empty($direccion_delivery))
+                {
+                    $direccion_delivery = $rw_encomienda['direccion_delivery'];
+                }else {
+                    $sqlenc = mysqli_query($con,"select id_sucursal_partida from tb_encomienda_cab where id_encomienda='".$id_encomienda."'");
+                    $rw_enc = mysqli_fetch_array($sqlenc);
+                    $enc = $rw_enc['id_sucursal_partida'];
+                    $id_sucursal = $enc;
+                    $direccion_delivery = $sucur;
+                }*/
+
+                
+                $sqlsucur = mysqli_query($con,"select a.direccion, a.direccion_real, b.codigo from tb_sucursales a inner join tb_encomienda_cab b ON a.id_sucursal=b.id_sucursal_llegada WHERE b.codigo = '".$codigo."'");
+                $rw_sucur = mysqli_fetch_array($sqlsucur);
+                $sucur = $rw_sucur['direccion_real'];
+                /*if (!empty($direccion_delivery))
+                {
+                    $direccion_delivery = $rw_encomienda['direccion_delivery'];
+                    $lugar = $direccion_delivery;
+                }else {
+                    $sqlenc = mysqli_query($con,"select id_sucursal_partida from tb_encomienda_cab");
+                    $rw_enc = mysqli_fetch_array($sqlenc);
+                    $enc = $rw_enc['id_sucursal_partida'];
+                    $id_sucursal = $enc;
+                    $direccion_delivery = $sucur;
+                }*/
+                if (!empty($direccion_delivery))
+                {
+                    $direccion_delivery = $rw_encomienda['direccion_delivery'];
+                    $lugar = $direccion_delivery;
+                }
+
+                if (empty($direccion_delivery))
+                {
+                    $lugar = $sucur;
+                }
+
+
 				/*$count_queryasientoss   = mysqli_query($con, "SELECT tb_cliente.n_documento_identidad, tb_cliente.nombre_cliente FROM tb_encomienda_cab,tb_cliente where tb_encomienda_cab.id_consignatario = tb_cliente.id_cliente and tb_encomienda_cab.id_encomienda='".$id_encomienda."'");
 	    		$rowasientoss= mysqli_fetch_array($count_queryasientoss);
 	     		$n_documento_identidad = $rowasientoss['n_documento_identidad'];
@@ -75,7 +134,7 @@ date_default_timezone_set("America/Lima");
 	} 
 	
 
-
+                
 
 
 
@@ -127,7 +186,8 @@ date_default_timezone_set("America/Lima");
             <strong>Encargado:</strong> <?php echo $encargado;?>
             <br><strong>Destino: </strong> <?php echo $sucursal;?>
             <br><strong>Entrega: </strong> <?php echo $delivery;?>
-            <br><strong>Dirección: </strong> <?php echo $direccion_delivery;?>
+            <br><strong>Dirección: </strong> <?php echo $lugar;?>
+        <!--<br><strong>Conductor: </strong> <?php //echo $conductor;?>-->
         </p>
 
 
@@ -147,7 +207,7 @@ date_default_timezone_set("America/Lima");
                 $hash = 0 ;
                 while ($rows=mysqli_fetch_array($sqltabledet)){  $hash++; ?>
                 <tr class="precios">
-                    
+                
                     <td class="text-center" align="center"><?php echo $rows['cantidad']; ?></td>
                     <td class="desc" align="center"><?php echo $rows['descripccion']; ?></td>
                     <!--<td class="text-right valor"><?php echo $rows['precio_unitario']; ?></td>-->
