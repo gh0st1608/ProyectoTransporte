@@ -10,6 +10,7 @@ services:
             - db
         networks:
             - default
+        restart: always
     db:
         image: mysql:5.7.38 #Disable: ONLY_FULL_GROUP_BY mode
         ports: 
@@ -24,6 +25,7 @@ services:
             - ./dump:/docker-entrypoint-initdb.d
             - ./conf:/etc/mysql/conf.d
             - persistent:/var/lib/mysql
+        restart: always
         networks:
             - default
     phpmyadmin:
@@ -36,5 +38,6 @@ services:
             MYSQL_USER: root
             MYSQL_PASSWORD: passw0rd
             MYSQL_ROOT_PASSWORD: passw0rd
+        restart: always
 volumes:
     persistent:
